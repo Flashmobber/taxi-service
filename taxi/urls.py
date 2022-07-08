@@ -4,7 +4,7 @@ from .views import index, CarListView, CarDetailView, DriverListView, \
     DriverDetailView, ManufacturerListView, CarCreateView, CarUpdateView, \
     CarDeleteView, DriverCreateView, DriverUpdateView, DriverDeleteView, \
     ManufacturerDeleteView, ManufacturerUpdateView, ManufacturerCreateView, \
-    actions_with_my_car
+    actions_with_car
 
 urlpatterns = [
     path("", index, name="index"),
@@ -29,6 +29,6 @@ urlpatterns = [
     path("cars/<int:pk>/", CarDetailView.as_view(), name="car-detail"),
     path("cars/<int:pk>/update/", CarUpdateView.as_view(), name="car-update"),
     path("cars/<int:pk>/delete/", CarDeleteView.as_view(), name="car-delete"),
-    path("cars/<int:pk>/assign/", actions_with_my_car, name="car-actions")]
+    path("cars/<int:pk>/action/", actions_with_car, name="car-actions")]
 
 app_name = "taxi"

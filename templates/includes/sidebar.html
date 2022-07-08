@@ -1,15 +1,29 @@
-<ul class="sidebar-nav list-group">
-  {% if user.is_authenticated %}
-    <li class="list-group-item">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
-    <li class="list-group-item"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-  {% else %}
-    <li class="list-group-item"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-  {% endif %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% if user.is_authenticated %}
+    <button style="margin-top: 10px;" type="button" class="btn btn-secondary btn-lg btn-block">
+        <a style="color: white; text-decoration: none;" href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+    </button>
+    {% if user.first_name %}
+        <li id="login-block" class="list-group-item">
+            <span style="font-size: 0.7em; color: gray;">User:</span><br>
+            <a href="{{ user.get_absolute_url }}">{{ user.first_name }} {{ user.last_name }}</a>
+        </li>
+    {% else %}
+        <li class="list-group-item"><a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+    {% endif %}
 
-  <br>
+{% else %}
+    <button type="button" class="btn btn-secondary btn-lg btn-block">
+        <a style="color: white; text-decoration: none;" href="{% url 'login' %}?next={{ request.path }}">Login</a>
+    </button>
+{% endif %}
+<li id="custom-border" class="list-group-item list-group-item-action"><a style="text-decoration: none"
+                                                      href="{% url 'taxi:index' %}">Home</a></li>
+<li id="custom-border" class="list-group-item list-group-item-action"><a style="text-decoration: none" href="{% url 'taxi:driver-list' %}">Drivers</a>
+</li>
+<li id="custom-border" class="list-group-item list-group-item-action"><a style="text-decoration: none" href="{% url 'taxi:car-list' %}">Cars</a>
+</li>
+<li id="custom-border" class="list-group-item list-group-item-action"><a style="text-decoration: none"
+                                                      href="{% url 'taxi:manufacturer-list' %}">Car brands</a></li>
 
-  <li class="list-group-item"><a href="{% url 'taxi:index' %}">Home</a></li>
-  <li class="list-group-item"><a href="{% url 'taxi:driver-list' %}">All drivers</a></li>
-  <li class="list-group-item"><a href="{% url 'taxi:car-list' %}">All cars</a></li>
-  <li class="list-group-item"><a href="{% url 'taxi:manufacturer-list' %}">All manufacturers</a></li>
-</ul>

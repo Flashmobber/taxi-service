@@ -2,31 +2,34 @@
 
 {% block content %}
     <h1>
-        Driver List
-        <a href="{% url 'taxi:driver-create' %}">+</a>
+        Driver List<br>
+        <button class="btn btn-success" type="button">
+            <a style="color: white; text-decoration: none;" href="{% url 'taxi:driver-create' %}">Add driver</a>
+        </button>
     </h1>
 
     {% if driver_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>License number</th>
-      </tr>
-    {% for driver in driver_list %}
-      <tr>
-        <td>{{ driver.id }}</td>
-        <td><a href="{{ driver.get_absolute_url }}">{{ driver.username }} {% if user == driver %} (Me){% endif %}</a></td>
-        <td>{{ driver.first_name }}</td>
-        <td>{{ driver.last_name }}</td>
-        <td>{{ driver.license_number }}</td>
-      </tr>
-    {% endfor %}
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>License number</th>
+            </tr>
+            {% for driver in driver_list %}
+                <tr>
+                    <td>{{ driver.id }}</td>
+                    <td><a href="{{ driver.get_absolute_url }}">{{ driver.username }} {% if user == driver %}
+                        (Me){% endif %}</a></td>
+                    <td>{{ driver.first_name }}</td>
+                    <td>{{ driver.last_name }}</td>
+                    <td>{{ driver.license_number }}</td>
+                </tr>
+            {% endfor %}
 
-    </table>
+        </table>
     {% else %}
-      <p>There are no drivers in the service.</p>
+        <p>There are no drivers in the service.</p>
     {% endif %}
 {% endblock %}

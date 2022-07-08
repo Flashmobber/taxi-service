@@ -1,27 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Username: {{ driver.username }}</h1>
-    <a href="{% url 'taxi:driver-update' pk=driver.id %}">Update</a>
-    <a href="{% url 'taxi:driver-delete' pk=driver.id %}">Delete</a>
+    <h1>
+        {% if driver.first_name %}
+            {{ driver.first_name }} {{ driver.last_name }}
+        {% else %}
+            {{ driver.username }}
+        {% endif %}
+        <br>
+        <h5><strong>License number:</strong> {{ driver.license_number }}</h5>
+    </h1>
+    <button class="btn btn-success" type="button">
+        <a style="color: white; text-decoration: none;" href="{% url 'taxi:driver-update' pk=driver.id %}">Update</a>
+    </button>
+    <button class="btn btn-danger" type="button">
+        <a style="color: white; text-decoration: none;" href="{% url 'taxi:driver-delete' pk=driver.id %}">Delete</a>
+    </button>
     <hr>
-
-    <p><strong>First name:</strong> {{ driver.first_name }}</p>
-    <p><strong>Last name:</strong> {{ driver.last_name }}</p>
-    <p><strong>License number:</strong> {{ driver.license_number }}</p>
-    <p><strong>Is staff:</strong> {{ driver.is_staff }}</p>
-
-    <div class="ml-3">
-        <h4>Cars</h4>
-
-        {% for car in driver.cars.all %}
-            <hr>
-            <p><strong>Model:</strong> {{ car.model }}</p>
-            <p><strong>Manufacturer:</strong> {{ car.manufacturer.name }}</p>
-            <p class="text-muted"><strong>Id:</strong> {{ car.id }}</p>
-
-        {% empty %}
-            <p>No cars!</p>
-        {% endfor %}
+    <div class="ml-0">
+        <table class="table">
+            {% if driver.cars.all %}
+                <thead class="thead-dark">
+                <tr>
+                    <th>Car{{ driver.cars.all|pluralize }}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+            {% endif %}
+            {% for car in driver.cars.all %}
+                <tr>
+                    <td>
+                        <a href="{% url 'taxi:car-detail' pk=car.id %}">
+                            {{ car.manufacturer.name }} {{ car.model }}</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-success btn-lg btn-block" type="button">
+                            <a style="color: white; text-decoration: none;"
+                               href="{% url 'taxi:car-update' pk=car.id %}">UPDATE</a>
+                        </button>
+                    </td>
+                </tr>
+            {% empty %}
+                <p>To add cars click "Update" button.</p>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

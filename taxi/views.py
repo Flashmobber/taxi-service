@@ -1,15 +1,13 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .forms import DriverCreateForm, DriverUpdateForm
+from .forms import DriverCreateForm, DriverUpdateForm, CarSearchForm
 from .models import Driver, Car, Manufacturer
 
 
-@login_required
 def index(request):
     """View function for the home page of the site."""
 
@@ -60,6 +58,21 @@ class CarListView(LoginRequiredMixin, generic.ListView):
     model = Car
     paginate_by = 15
     queryset = Car.objects.all().select_related("manufacturer")
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CarListView, self).get_context_data(**kwargs)
+        context["search_form"] = CarSearchForm()
+        return context
+
+    def get_queryset(self):
+        form = CarSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return self.queryset.filter(
+                model__icontains=form.cleaned_data["model"])
+
+        return self.queryset
+
 
 
 class CarCreateView(LoginRequiredMixin, generic.CreateView):
@@ -113,7 +126,7 @@ class DriverDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Driver.objects.all().prefetch_related("cars__manufacturer")
 
 
-def actions_with_my_car(request, pk):
+def actions_with_car(request, pk):
     driver = Driver.objects.get(id=request.user.id)
     if Car.objects.get(id=pk) in driver.cars.all():
         driver.cars.remove(pk)
