@@ -1,11 +1,11 @@
 # Taxi Service
 Django project of taxi service
 
-### [Deployed on Heroku](https://taxi-service-deploy.herokuapp.com/)
+### [>>> Deployed on Heroku <<<](https://taxi-service-deploy.herokuapp.com/)
 
-> To test this site you should use:
-> * login: user
-> * password: user12345
+To test this site you should use:
+> - login: user
+> - password: user12345
 
 ### Installing and setup
 
