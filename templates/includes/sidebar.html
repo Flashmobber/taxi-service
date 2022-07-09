@@ -1,7 +1,8 @@
 <div class="navbar-collapse" id="navbar">
     <ul class="navbar-nav">
         {% if user.is_authenticated %}
-            <button style="margin-top: 10px; border-bottom-color: black;" type="button" class="btn btn-secondary btn-lg btn-block">
+            <button style="margin-top: 10px; border-bottom-color: black;" type="button"
+                    class="btn btn-secondary btn-lg btn-block">
                 <a class="btn-link" href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
             </button>
             <li class="list-group-item list-group-item-action nav-item">
@@ -13,8 +14,9 @@
                 {% endif %}
             </li>
         {% else %}
-            <button type="button" class="btn btn-secondary btn-lg btn-block">
-                <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+            <button style="margin-top: 10px; border-bottom-color: black;" type="button"
+                    class="btn btn-secondary btn-lg btn-block">
+                <a class="btn-link" href="{% url 'login' %}?next={{ request.path }}">Login</a>
             </button>
         {% endif %}
         <li class="list-group-item list-group-item-action nav-item">
