@@ -3,23 +3,55 @@
 
 {% block content %}
     <h1>
-        Car list <a href="{% url 'taxi:car-create' %}">+</a>
+        <span style="margin: 5px">Cars list</span>
+        <button style="float: right; margin-top: 10px; margin-left: 5px; min-width: 10em" class="btn btn-success"
+                type="button">
+            <a class="btn-link" href="{% url 'taxi:car-create' %}">Add car</a>
+        </button>
+        <form style="float: right;" action="" method="GET" class="form-inline">
+            {{ search_form|crispy }}
+            <input style="margin-top: 10px;" class="btn btn-secondary" type="submit" value="🔎">
+        </form>
     </h1>
     <hr>
-
-    <form action="" method="GET" class="form-inline">
-        {{ search_form|crispy }}
-        <input class="btn btn-secondary" type="submit" value="🔎">
-    </form>
     {% if car_list %}
-        <ul>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th style="width: 45px;">ID</th>
+                <th style="width: 190px;">Brand</th>
+                <th>Model</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
             {% for car in car_list %}
-                <li>
-                    <a href="{% url "taxi:car-detail" pk=car.id %} ">{{ car.id }}</a>
-                    {{ car.model }} ({{ car.manufacturer.name }})
-                </li>
+                <tr>
+                    <td><a href="{% url 'taxi:car-detail' pk=car.id %}">{{ car.id }}</a></td>
+                    <td>{{ car.manufacturer.name }}</td>
+                    <td>{{ car.model }}</td>
+                    <td>
+                        <button class="btn btn-primary btn-lg btn-block" type="button">
+                            <a style="color: white; text-decoration: none;"
+                               href="{% url 'taxi:car-detail' pk=car.id %}">DETAILS</a>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-success btn-lg btn-block" type="button">
+                            <a style="color: white; text-decoration: none;"
+                               href="{% url 'taxi:car-update' pk=car.id %}">UPDATE</a>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-lg btn-block" type="button">
+                            <a style="color: white; text-decoration: none;"
+                               href="{% url 'taxi:car-delete' pk=car.id %}">DELETE</a>
+                        </button>
+                    </td>
+                </tr>
             {% endfor %}
-        </ul>
+        </table>
     {% else %}
         <p>There are no cars in taxi</p>
     {% endif %}

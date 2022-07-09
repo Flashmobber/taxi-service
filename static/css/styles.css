@@ -1,18 +1,33 @@
 body {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
-.nav .nav-item {
-    color: lightgray;
+.nav-link {
+    color: white;
 }
 
-.nav .nav-item.active,
-.nav .nav-item:hover {
-    color: #A0A0A0;
+.nav-link:hover {
+    color: white;
+    filter: brightness(10%);
 }
 
-#login-block {
-    border-radius: 5px;
-    padding: 5px 5px 5px 10px;
-    background-color: lightgray;
+.nav-item {
+    padding: 0;
+    background-color: #6c757d;
+    border-radius: 5px !important;
+    border-bottom-color: black;
+}
+
+.nav-item:hover {
+    background-color: #6c757d;
+    filter: brightness(90%);
+}
+
+.nav-link {
+    margin: 5px;
+}
+
+.btn-link {
+    color: white !important;
+    text-decoration: none !important;
 }

@@ -74,7 +74,6 @@ class CarListView(LoginRequiredMixin, generic.ListView):
         return self.queryset
 
 
-
 class CarCreateView(LoginRequiredMixin, generic.CreateView):
     model = Car
     fields = "__all__"
@@ -87,7 +86,7 @@ class CarDetailView(LoginRequiredMixin, generic.DetailView):
 
 class CarUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Car
-    fields = "__all__"
+    fields = ("model", "manufacturer")
     success_url = reverse_lazy("taxi:car-list")
 
 
@@ -105,6 +104,7 @@ class DriverCreateView(LoginRequiredMixin, generic.CreateView):
 
 class DriverListView(LoginRequiredMixin, generic.ListView):
     model = Driver
+    ordering = "id"
     paginate_by = 15
 
 

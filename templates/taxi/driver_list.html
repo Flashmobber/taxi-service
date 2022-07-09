@@ -2,9 +2,9 @@
 
 {% block content %}
     <h1>
-        Driver List<br>
-        <button class="btn btn-success" type="button">
-            <a style="color: white; text-decoration: none;" href="{% url 'taxi:driver-create' %}">Add driver</a>
+        <span style="margin: 5px">Drivers list</span>
+        <button style="float: right; margin: 5px;" class="btn btn-success" type="button">
+            <a class="btn-link" href="{% url 'taxi:driver-create' %}">Add driver</a>
         </button>
     </h1>
 

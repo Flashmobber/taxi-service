@@ -7,22 +7,24 @@
         {% else %}
             {{ driver.username }}
         {% endif %}
+        <button class="btn btn-success" type="button" style="float: right; margin: 5px; min-width: 10em">
+            <a style="color: white; text-decoration: none;"
+               href="{% url 'taxi:driver-update' pk=driver.id %}">Update</a>
+        </button>
         <br>
-        <h5><strong>License number:</strong> {{ driver.license_number }}</h5>
+        <span style="font-size: medium">License number: {{ driver.license_number }}</span>
+        <button class="btn btn-danger" type="button" style="float: right; margin: 5px; min-width: 10em">
+            <a style="color: white; text-decoration: none;"
+               href="{% url 'taxi:driver-delete' pk=driver.id %}">Delete</a>
+        </button>
     </h1>
-    <button class="btn btn-success" type="button">
-        <a style="color: white; text-decoration: none;" href="{% url 'taxi:driver-update' pk=driver.id %}">Update</a>
-    </button>
-    <button class="btn btn-danger" type="button">
-        <a style="color: white; text-decoration: none;" href="{% url 'taxi:driver-delete' pk=driver.id %}">Delete</a>
-    </button>
     <hr>
     <div class="ml-0">
         <table class="table">
             {% if driver.cars.all %}
                 <thead class="thead-dark">
                 <tr>
-                    <th>Car{{ driver.cars.all|pluralize }}</th>
+                    <th style="text-align: center;">Car{{ driver.cars.all|pluralize }}</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -30,11 +32,11 @@
             {% endif %}
             {% for car in driver.cars.all %}
                 <tr>
-                    <td>
+                    <td style="width: 85%; height: 25px; background-color: lavender;">
                         <a href="{% url 'taxi:car-detail' pk=car.id %}">
                             {{ car.manufacturer.name }} {{ car.model }}</a>
                     </td>
-                    <td>
+                    <td style="width: 15%; height: 25px; padding: 0">
                         <button class="btn btn-success btn-lg btn-block" type="button">
                             <a style="color: white; text-decoration: none;"
                                href="{% url 'taxi:car-update' pk=car.id %}">UPDATE</a>
@@ -42,7 +44,7 @@
                     </td>
                 </tr>
             {% empty %}
-                <p>To add cars click "Update" button.</p>
+                <p>This driver hasn't any car.</p>
             {% endfor %}
             </tbody>
         </table>
