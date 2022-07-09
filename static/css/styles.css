@@ -1,12 +1,13 @@
-html, body {
+body {
     margin-top: 0px;
 }
 
-#custom-border {
-    border: none;
-    padding-left: 10px;
-    background-color: #F7F7F7;
-    border-radius: 5px;
+.nav .nav-item {
+    background-color: red;
+}
+.nav .nav-item.active,
+.nav .nav-item:hover {
+    background-color: pink;
 }
 
 #login-block {
