@@ -3,11 +3,12 @@ body {
 }
 
 .nav .nav-item {
-    background-color: red;
+    color: lightgray;
 }
+
 .nav .nav-item.active,
 .nav .nav-item:hover {
-    background-color: pink;
+    color: #A0A0A0;
 }
 
 #login-block {
