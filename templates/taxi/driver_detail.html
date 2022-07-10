@@ -20,7 +20,7 @@
     </h1>
     <hr>
     <div class="ml-0">
-        <table class="table">
+        <table class="table table-striped table-sm">
             {% if driver.cars.all %}
                 <thead class="thead-dark">
                 <tr>
@@ -29,23 +29,23 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% for car in driver.cars.all %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'taxi:car-detail' pk=car.id %}">
+                                {{ car.manufacturer.name }} {{ car.model }}</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-success btn-sm btn-block" type="button">
+                                <a style="color: white; text-decoration: none;"
+                                   href="{% url 'taxi:car-update' pk=car.id %}">UPDATE</a>
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <p>This driver hasn't any car yet.</p>
             {% endif %}
-            {% for car in driver.cars.all %}
-                <tr>
-                    <td style="width: 85%; height: 25px; background-color: lavender;">
-                        <a href="{% url 'taxi:car-detail' pk=car.id %}">
-                            {{ car.manufacturer.name }} {{ car.model }}</a>
-                    </td>
-                    <td style="width: 15%; height: 25px; padding: 0">
-                        <button class="btn btn-success btn-lg btn-block" type="button">
-                            <a style="color: white; text-decoration: none;"
-                               href="{% url 'taxi:car-update' pk=car.id %}">UPDATE</a>
-                        </button>
-                    </td>
-                </tr>
-            {% empty %}
-                <p>This driver hasn't any car.</p>
-            {% endfor %}
             </tbody>
         </table>
     </div>

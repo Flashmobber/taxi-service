@@ -15,7 +15,7 @@
     </h1>
     <hr>
     {% if car_list %}
-        <table class="table">
+        <table class="table table-striped table-sm">
             <thead class="thead-dark">
             <tr>
                 <th style="width: 45px;">ID</th>
@@ -26,33 +26,35 @@
                 <th></th>
             </tr>
             </thead>
+            <tbody>
             {% for car in car_list %}
                 <tr>
                     <td><a href="{% url 'taxi:car-detail' pk=car.id %}">{{ car.id }}</a></td>
                     <td>{{ car.manufacturer.name }}</td>
                     <td>{{ car.model }}</td>
                     <td>
-                        <button class="btn btn-primary btn-lg btn-block" type="button">
+                        <button class="btn btn-primary btn-sm btn-block" type="button">
                             <a style="color: white; text-decoration: none;"
                                href="{% url 'taxi:car-detail' pk=car.id %}">DETAILS</a>
                         </button>
                     </td>
                     <td>
-                        <button class="btn btn-success btn-lg btn-block" type="button">
+                        <button class="btn btn-success btn-sm btn-block" type="button">
                             <a style="color: white; text-decoration: none;"
                                href="{% url 'taxi:car-update' pk=car.id %}">UPDATE</a>
                         </button>
                     </td>
                     <td>
-                        <button class="btn btn-danger btn-lg btn-block" type="button">
+                        <button class="btn btn-danger btn-sm btn-block" type="button">
                             <a style="color: white; text-decoration: none;"
                                href="{% url 'taxi:car-delete' pk=car.id %}">DELETE</a>
                         </button>
                     </td>
                 </tr>
             {% endfor %}
+            </tbody>
         </table>
     {% else %}
-        <p>There are no cars in taxi</p>
+        <p>Cars not found.</p>
     {% endif %}
 {% endblock %}

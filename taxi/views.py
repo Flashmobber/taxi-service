@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .forms import DriverCreateForm, DriverUpdateForm, CarSearchForm
+from .forms import DriverCreateForm, DriverUpdateForm, CarSearchForm, \
+    ManufacturerSearchForm
 from .models import Driver, Car, Manufacturer
 
 
@@ -40,6 +41,21 @@ class ManufacturerListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "manufacturer_list"
     template_name = "taxi/manufacturer_list.html"
     paginate_by = 15
+    queryset = Manufacturer.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ManufacturerListView, self).get_context_data(**kwargs)
+        context["search_brand"] = ManufacturerSearchForm()
+        return context
+
+    def get_queryset(self):
+        form = ManufacturerSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return self.queryset.filter(
+                name__icontains=form.cleaned_data["name"])
+
+        return self.queryset
 
 
 class ManufacturerUpdateView(LoginRequiredMixin, generic.UpdateView):
