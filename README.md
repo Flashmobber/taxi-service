@@ -28,3 +28,23 @@ python manage.py runserver
 - Authentication functional for Users: model, views, templates and form for Driver objects. 
 - CRUD for cars, drivers, and manufacturers directly from the website
 - Powerful Django admin panel for managing DB.
+
+### Screensots
+Home screen
+
+![img_1.png](img_1.png)
+
+
+Driver details
+
+![img_2.png](img_2.png)
+
+
+Car details
+
+![img_3.png](img_3.png)
+
+
+Filtered brands list
+
+![img_4.png](img_4.png)
