@@ -21,6 +21,13 @@ class DriverCreateForm(forms.ModelForm):
         fields = ["username", "password", "first_name", "last_name", "email",
                   "license_number"]
 
+    def save(self, commit=True):
+        password = self.cleaned_data.pop("password")
+        user = super(DriverCreateForm, self).save()
+        user.set_password(password)
+        user.save()
+        return user
+
 
 class DriverUpdateForm(forms.ModelForm):
     license_number = forms.CharField(required=True,
